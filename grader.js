@@ -19,6 +19,7 @@ References:
    - http://en.wikipedia.org/wiki/JSON
    - https://developer.mozilla.org/en-US/docs/JSON
    - https://developer.mozilla.org/en-US/docs/JSON#JSON_in_Firefox_2
+*/
 
 var fs = require('fs');
 var program = require('commander');
@@ -28,7 +29,7 @@ var CHECKSFILE_DEFAULT = "checks.json";
 
 var assertFileExists = function(infile) {
   var instr = infile.toString();
-  if (!fs.existsSync(instr)) {
+  if(!fs.existsSync(instr)) {
     console.log("%s does no exist. Exiting.", instr);
     process.exit(1); // http://nodejs.org/api/process.html#process_process_exit_code
   }
@@ -45,7 +46,7 @@ var loadChecks = function(checksfile) {
 
 var checkHtmlFile = function(htmlfile, checksfile) {
   $ = cheerioHtmlFile(htmlfile);
-  var checks = loadChecks(checksfile.sort();
+  var checks = loadChecks(checksfile).sort();
   var out = {};
   for(var ii in checks) {
     var present = $(checks[ii]).length > 0;
@@ -62,8 +63,8 @@ var clone = function(fn) {
 
 if(require.main == module) {
   program
-    .option('-c, --checks <check_file>', 'Path to checks.json', clone(assertFileExists), (CHECKSFILE_DEFAULT)
-    .option('-f, --file <html_file>', 'Path to index.html', clone(assertFileExist), HTMLFILE_DEFAULT);
+    .option('-c, --checks <check_file>', 'Path to checks.json', clone(assertFileExists), CHECKSFILE_DEFAULT)
+    .option('-f, --file <html_file>', 'Path to index.html', clone(assertFileExists), HTMLFILE_DEFAULT)
     .parse(process.argv);
   var checkJson = checkHtmlFile(program.file, program.checks);
   var outJson = JSON.stringify(checkJson, null, 4);
