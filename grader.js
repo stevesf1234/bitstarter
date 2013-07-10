@@ -75,10 +75,14 @@ if(require.main == module) {
     .parse(process.argv);
   if (program.url) {
     rest.get(program.url).on('complete', function(result, response) {
-      fs.writeFileSync(URLFILE_DEFAULT, result);
-      var checkJson = checkHtmlFile(URLFILE_DEFAULT, program.checks);
-      var outJson = JSON.stringify(checkJson, null, 4);
-      console.log(outJson);
+      if (result instanceof Error) {
+        console.log("URL Error");
+      } else {
+          fs.writeFileSync(URLFILE_DEFAULT, result);
+          var checkJson = checkHtmlFile(URLFILE_DEFAULT, program.checks);
+          var outJson = JSON.stringify(checkJson, null, 4);
+          console.log(outJson);
+      }
     });
   } else {
       var checkJson = checkHtmlFile(program.file, program.checks);
