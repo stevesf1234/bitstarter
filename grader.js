@@ -15,16 +15,22 @@ References:
    - https://github.com/visionmedia/commander.js
    - http://tjholowaychuk.com/post/9103188408/commander-js-nodejs-command-line-interfaces-made-easy
 
- + JSOn
+ + JSON
    - http://en.wikipedia.org/wiki/JSON
    - https://developer.mozilla.org/en-US/docs/JSON
    - https://developer.mozilla.org/en-US/docs/JSON#JSON_in_Firefox_2
+
+ + restler
+   - https://github.com/danwrong/restler
 */
 
+var util = require('util');
 var fs = require('fs');
+var rest = require('restler');
 var program = require('commander');
 var cheerio = require('cheerio');
 var HTMLFILE_DEFAULT = "index.html";
+var URLFILE_DEFAULT = "url.html";
 var CHECKSFILE_DEFAULT = "checks.json";
 
 var assertFileExists = function(infile) {
@@ -65,10 +71,19 @@ if(require.main == module) {
   program
     .option('-c, --checks <check_file>', 'Path to checks.json', clone(assertFileExists), CHECKSFILE_DEFAULT)
     .option('-f, --file <html_file>', 'Path to index.html', clone(assertFileExists), HTMLFILE_DEFAULT)
+    .option('-u, --url <url_path>', 'Path to url')
     .parse(process.argv);
+/*
   var checkJson = checkHtmlFile(program.file, program.checks);
   var outJson = JSON.stringify(checkJson, null, 4);
   console.log(outJson);
+*/
+  rest.get(program.url).on('complete', function(result, response) {
+    fs.writeFileSync(URLFILE_DEFAULT, result);
+    var checkJson = checkHtmlFile(URLFILE_DEFAULT, program.checks);
+    var outJson = JSON.stringify(checkJson, null, 4);
+    console.log(outJson);
+  });
 } else {
     exports.CheckHtmlFile = checkHtmlFile;
 }
