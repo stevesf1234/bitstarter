@@ -32,10 +32,6 @@ var cheerio = require('cheerio');
 var HTMLFILE_DEFAULT = "index.html";
 var CHECKSFILE_DEFAULT = "checks.json";
 
-var cheerioHtml = function(html) {
-  return cheerio.load(html);
-};
-
 var checkHtml = function(html, checksfile) {
   $ = cheerio.load(html);
   var checks = loadChecks(checksfile).sort();
