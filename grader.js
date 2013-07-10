@@ -76,7 +76,7 @@ if(require.main == module) {
   if (program.url) {
     rest.get(program.url).on('complete', function(result, response) {
       if (result instanceof Error) {
-        console.log("URL Error");
+        console.log("Error fetching %s", program.url);
       } else {
           fs.writeFileSync(URLFILE_DEFAULT, result);
           var checkJson = checkHtmlFile(URLFILE_DEFAULT, program.checks);
