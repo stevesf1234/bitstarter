@@ -30,8 +30,22 @@ var rest = require('restler');
 var program = require('commander');
 var cheerio = require('cheerio');
 var HTMLFILE_DEFAULT = "index.html";
-var URLFILE_DEFAULT = "url.html";
 var CHECKSFILE_DEFAULT = "checks.json";
+
+var cheerioHtml = function(html) {
+  return cheerio.load(html);
+};
+
+var checkHtml = function(html, checksfile) {
+  $ = cheerio.load(html);
+  var checks = loadChecks(checksfile).sort();
+  var out = {};
+  for(var ii in checks) {
+    var present = $(checks[ii]).length > 0;
+    out[checks[ii]] = present;
+  }
+  return out;
+};
 
 var assertFileExists = function(infile) {
   var instr = infile.toString();
@@ -78,8 +92,7 @@ if(require.main == module) {
       if (result instanceof Error) {
         console.log("Error fetching %s", program.url);
       } else {
-          fs.writeFileSync(URLFILE_DEFAULT, result);
-          var checkJson = checkHtmlFile(URLFILE_DEFAULT, program.checks);
+          var checkJson = checkHtml(result, program.checks);
           var outJson = JSON.stringify(checkJson, null, 4);
           console.log(outJson);
       }
