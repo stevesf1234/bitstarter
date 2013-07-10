@@ -104,5 +104,6 @@ if(require.main == module) {
   }
 } else {
     exports.CheckHtmlFile = checkHtmlFile;
+    exports.CheckHtml = checkHtml;
 }
 
