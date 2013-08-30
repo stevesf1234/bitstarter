@@ -1,32 +1,31 @@
 <html data-cast-api-enabled="true">
-<head>
-	<link rel="stylesheet" type="text/css" href="receiver.css" />
-<body class="initial">
-	<div class="messages">
-		<h1>Waiting for Messages...</h1>
-	</div>
-</body>
+  <head>
+    <link rel="stylesheet" type="text/css" href="receiver.css" />
+  </head>
+  <body class="initial">
+    <div class="messages">
+      <h1>Waiting for Messages...</h1>
+    </div>
+  </body>
 
-<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-<script src="https://www.gstatic.com/cast/js/receiver/1.0/cast_receiver.js"></script>
-<script>
-	$(function() {
-		var receiver = new cast.receiver.Receiver('eae6badd-a851-437a-8a8f-8255bc84b3fb', ['HelloWorld']),
-			channelHandler = new cast.receiver.ChannelHandler('HelloWorld'),
-			$messages = $('.messages'),
-			$body = $('body');
-		
-		channelHandler.addChannelFactory(
-			receiver.createChannelFactory('HelloWorld'));
+  <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+  <script src="https://www.gstatic.com/cast/js/receiver/1.0/cast_receiver.js"></script>
+  <script>
+    $(function() {
+      var receiver = new cast.receiver.Receiver('eae6badd-a851-437a-8a8f-8255bc84b3fb', ['com.stevesf1234-bitstarter-mooc.herokuapp']),
+      channelHandler = new cast.receiver.ChannelHandler('com.stevesf1234-bitstarter-mooc.herokuapp'),
+      $messages = $('.messages'),
+      $body = $('body');
 
-		receiver.start();
+      channelHandler.addChannelFactory(
+        receiver.createChannelFactory('com.stevesf1234-bitstarter-mooc.herokuapp'));
+        receiver.start();
 
-		channelHandler.addEventListener(cast.receiver.Channel.EventType.MESSAGE, onMessage.bind(this));
+        channelHandler.addEventListener(cast.receiver.Channel.EventType.MESSAGE, onMessage.bind(this));
 
-		function onMessage(event) {
-			$messages.html(event.message.type);
-		}
-	});
-</script>
-
+        function onMessage(event) {
+          $messages.html(event.message.type);
+        }
+    });
+  </script>
 </html>
