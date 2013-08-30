@@ -76,7 +76,7 @@
       console.log("onLaunch");
       if (activity.status === 'running') {
         cv_activity = activity;
-        cast_api.sendMessage(cv_activity.activityId, 'HelloWorld', {type: 'HelloWorld'});
+        cast_api.sendMessage(cv_activity.activityId, 'com.stevesf1234-bitstarter-mooc.herokuapp', {type: 'HelloWorld'});
       }
     };
 

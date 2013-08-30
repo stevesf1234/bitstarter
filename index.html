@@ -12,13 +12,13 @@
   <script src="https://www.gstatic.com/cast/js/receiver/1.0/cast_receiver.js"></script>
   <script>
     $(function() {
-      var receiver = new cast.receiver.Receiver('eae6badd-a851-437a-8a8f-8255bc84b3fb', ['HelloWorld']),
-      channelHandler = new cast.receiver.ChannelHandler('HelloWorld'),
+      var receiver = new cast.receiver.Receiver('eae6badd-a851-437a-8a8f-8255bc84b3fb', ['com.stevesf1234-bitstarter-mooc.herokuapp']),
+      channelHandler = new cast.receiver.ChannelHandler('com.stevesf1234-bitstarter-mooc.herokuapp'),
       $messages = $('.messages'),
       $body = $('body');
 
       channelHandler.addChannelFactory(
-        receiver.createChannelFactory('HelloWorld'));
+        receiver.createChannelFactory('com.stevesf1234-bitstarter-mooc.herokuapp'));
         receiver.start();
 
         channelHandler.addEventListener(cast.receiver.Channel.EventType.MESSAGE, onMessage.bind(this));
