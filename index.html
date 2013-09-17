@@ -1,31 +1,31 @@
-<html data-cast-api-enabled="true">
-  <head>
-    <link rel="stylesheet" type="text/css" href="receiver.css" />
-  </head>
-  <body class="initial">
-    <div class="messages">
-      <h1>Waiting for Messages...</h1>
+<!DOCTYPE html>
+<html ng-app data-cast-api-enabled="true">
+<head>
+<title>Cast Web/Chrome Sender API Demo</title>
+<link rel="stylesheet" type="text/css" href="demo_app.css">
+<script src="helloWorld.js"></script>
+</head>
+<body>
+  <div>
+    <div>
+      <h2 style="display:block">This is a Hello World sample for casting media to Chromcast device on TV</h2>
+      <div style="float:left; width:100%; margin:10px;">
+        <h3 id="receiver_msg"></h3>
+        <div id='receivers'>
+        </div>
+      </div>
+      <br>
+      <h3 style="display: inline-block">Select a media</h3>
+      <div style="clear:both;">
+           <input type="radio" checked name="media" onclick="selectMedia(0);">Big buck Bunny MP4<br>
+           <input type="radio" name="media" onclick="selectMedia(1);">Elephants Dream MP4<br>
+           <input type="radio" name="media" onclick="selectMedia(2);">Tears of Steel MOV<br>
+           <input type="radio" name="media" onclick="selectMedia(3);">Reel MP4<br>
+           <input type="radio" name="media" onclick="selectMedia(4);">Google I/O 2011 MP3<br>
+      </div>
+
     </div>
-  </body>
+  </div>
 
-  <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-  <script src="https://www.gstatic.com/cast/js/receiver/1.0/cast_receiver.js"></script>
-  <script>
-    $(function() {
-      var receiver = new cast.receiver.Receiver('eae6badd-a851-437a-8a8f-8255bc84b3fb', ['stevesf1234-bitstarter-mooc.herokuapp.com']),
-      channelHandler = new cast.receiver.ChannelHandler('stevesf1234-bitstarter-mooc.herokuapp.com'),
-      $messages = $('.messages'),
-      $body = $('body');
-
-      channelHandler.addChannelFactory(
-        receiver.createChannelFactory('stevesf1234-bitstarter-mooc.herokuapp.com'));
-        receiver.start();
-
-        channelHandler.addEventListener(cast.receiver.Channel.EventType.MESSAGE, onMessage.bind(this));
-
-        function onMessage(event) {
-          $messages.html(event.message.type);
-        }
-    });
-  </script>
+</body>
 </html>
